@@ -11,9 +11,15 @@ import de.erdbeerbaerlp.dcintegration.common.DiscordIntegration
 @Mixin(Broadcast::class)
 class BroadcastMixin {
 
-    @Inject(method = ["broadcastMessage"], at = [At("TAIL")])
-    private fun sendToDiscord(message: Text, ci: CallbackInfo) {
+    @Inject(method = ["broadcastMessage(Lnet/minecraft/text/Text;)V"], at = [At("TAIL")])
+    private fun sendToDiscordCrossDimension(message: Text, ci: CallbackInfo) {
         val discordIntegration = DiscordIntegration.INSTANCE ?: return
         discordIntegration.sendMessage(message.string)
     }
+
+//    @Inject(method = ["broadcastMessage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/text/Text;)V"], at = [At("TAIL")])
+//    private fun sendToDiscordWorld(level: ServerWorld, message: Text, ci: CallbackInfo) {
+//        val discordIntegration = DiscordIntegration.INSTANCE ?: return
+//        discordIntegration.sendMessage(message.string)
+//    }
 }
