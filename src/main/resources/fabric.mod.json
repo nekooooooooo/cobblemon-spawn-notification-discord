@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "cobblemon_spawn_notification_discord",
   "version": "${version}",
-  "name": "Cobblemon Spawn Notification (Discord Integration)",
-  "description": "Adds Discord integration to Cobblemon Spawn Notification, allowing Pokémon spawn alerts to be sent directly to a Discord channel.",
+  "name": "cobblemon_spawn_notification_discord",
+  "description": "Adds Discord integration to Cobblemon Spawn Notification, allowing Pokémon spawn alerts to be sent directly to a Discord server.",
   "authors": [],
   "contact": {},
   "license": "MIT",
@@ -11,18 +11,16 @@
   "environment": "server",
   "entrypoints": {
     "main": [
-      "me.nekooooooooo.csn_discord.CSNDiscord"
+      "me.nekooooooooo.cobblemon_spawn_notification_discord.CSNDiscord"
     ]
   },
   "mixins": [
-    "csn_discord.mixins.json"
+    "cobblemon_spawn_notification_discord.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-language-kotlin": ">=${kotlin_loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}",
-    "cobblemon": ">=1.5.0 <1.6.0",
-    "cobblemon_spawn_notification": ">=1.5-fabric-1.2.1"
+    "minecraft": "${minecraft_version}"
   }
 }

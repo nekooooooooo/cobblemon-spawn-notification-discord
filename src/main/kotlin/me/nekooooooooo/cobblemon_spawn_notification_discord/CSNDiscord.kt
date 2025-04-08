@@ -1,4 +1,4 @@
-package me.nekooooooooo.csn_discord
+package me.nekooooooooo.cobblemon_spawn_notification_discord
 
 import net.fabricmc.api.ModInitializer
 import org.slf4j.Logger

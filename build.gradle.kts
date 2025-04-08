@@ -14,7 +14,7 @@ base {
     archivesName.set(project.property("archives_base_name") as String)
 }
 
-val targetJavaVersion = 17
+val targetJavaVersion = 21
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
@@ -40,7 +40,6 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
-
     mavenLocal()
     mavenCentral()
     maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
@@ -65,8 +64,9 @@ dependencies {
     // Cobblemon Spawn Notifier
     // modImplementation(files("libs/cobblemon-spawn-notification-1.5-fabric-1.2.1.jar"))
 
-    modImplementation(files("libs/cobblemon-spawn-notification-1.5-fabric-1.2.1.jar"))
-
+    // modImplementation(files("libs/cobblemon-spawn-notification-1.5-fabric-1.2.1.jar"))
+    modImplementation("maven.modrinth:cobblemon-spawn-notification:${property("cobblemon_spawn_notification_version")}")
+    // modImplementation("maven.modrinth:dcintegration:${property("dcintegration_version")}")
 
     // DiscordIntegration
     compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
