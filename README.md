@@ -1,6 +1,6 @@
 # Cobblemon Spawn Notification Discord Integration
 
-![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/GjyKHwb6?style=for-the-badge&logo=modrinth&label=Fabric&color=00af5c&link=https%3A%2F%2Fmodrinth.com%2Fmod%2Fcobblemon-spawn-notification-for-discord)
+![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/GjyKHwb6?style=for-the-badge&logo=modrinth&label=FABRIC%20%2F%20NEOFORGE&color=00af5c&link=https%3A%2F%2Fmodrinth.com%2Fmod%2Fcobblemon-spawn-notification-for-discord)
 ![Modrinth Downloads](https://img.shields.io/modrinth/dt/GjyKHwb6?style=for-the-badge&logo=modrinth&color=00af5c)
 
 Cobblemon Spawn Notification Discord Integration is an addon/extension for the original Cobblemon Spawn Notification Mod by tmetcalfe89, adding Discord integration to ErdbeerbaerLP's Discord Integration Mod using their API.
