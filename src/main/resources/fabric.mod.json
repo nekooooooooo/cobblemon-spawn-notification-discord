@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "cobblemon_spawn_notification_discord",
   "description": "Adds Discord integration to Cobblemon Spawn Notification, allowing Pokémon spawn alerts to be sent directly to a Discord server.",
-  "authors": [],
+  "authors": [
+    "nekooooooooo"
+  ],
   "contact": {},
   "license": "MIT",
   "icon": "assets/cobblemon_spawn_notification_discord/icon.png",
