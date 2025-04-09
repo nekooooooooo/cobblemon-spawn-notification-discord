@@ -65,8 +65,10 @@ dependencies {
     // Cobblemon Spawn Notifier
     // modImplementation(files("libs/cobblemon-spawn-notification-1.5-fabric-1.2.1.jar"))
 
-    modImplementation(files("libs/cobblemon-spawn-notification-1.5-fabric-1.2.1.jar"))
+    modImplementation("maven.modrinth:cobblemon-spawn-notification:${property("cobblemon_spawn_notification_version")}")
 
+    // MC2Discord
+    compileOnly("maven.modrinth:mc2discord:aInmqdKM")
 
     // DiscordIntegration
     compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
