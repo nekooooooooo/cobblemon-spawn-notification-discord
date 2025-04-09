@@ -15,9 +15,12 @@ class CSNDiscord : ModInitializer {
 
     override fun onInitialize() {
         LOGGER.info("Cobblemon Spawn Notification: Discord Integration has been initialized!")
+
+        // TODO: Refactor for scalability
         hasDCIntegration = FabricLoader.getInstance().isModLoaded("dcintegration-fabric")
         hasMC2Discord = FabricLoader.getInstance().isModLoaded("mc2discord")
         if(hasDCIntegration) LOGGER.info("Cobblemon Spawn Notification: DCIntegration detected!")
         if(hasMC2Discord) LOGGER.info("Cobblemon Spawn Notification: MC2Discord detected!")
+        if(!hasMC2Discord && !hasDCIntegration) LOGGER.warn("No discord integration mod detected!")
     }
 }
