@@ -70,11 +70,11 @@ dependencies {
     // modImplementation("maven.modrinth:dcintegration:${property("dcintegration_version")}")
 
     // MC2Discord
-    modImplementation("maven.modrinth:mc2discord:Gl8sM8TE")
+    compileOnly("maven.modrinth:mc2discord:Gl8sM8TE")
 
     // DiscordIntegration
     // compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
-    modImplementation("de.erdbeerbaerlp:dcintegration.common:3.0.7")
+    compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
     compileOnly("org.apache.logging.log4j:log4j-api:2.17.1")
 }
 
