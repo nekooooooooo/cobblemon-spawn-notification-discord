@@ -47,6 +47,7 @@ repositories {
     maven("https://api.modrinth.com/maven")
     maven("libs")
     maven("https://repo.erdbeerbaerlp.de/repository/maven-public/")
+    maven("https://cursemaven.com")
 }
 
 dependencies {
@@ -68,8 +69,12 @@ dependencies {
     modImplementation("maven.modrinth:cobblemon-spawn-notification:${property("cobblemon_spawn_notification_version")}")
     // modImplementation("maven.modrinth:dcintegration:${property("dcintegration_version")}")
 
+    // MC2Discord
+    modImplementation("maven.modrinth:mc2discord:Gl8sM8TE")
+
     // DiscordIntegration
-    compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
+    // compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
+    modImplementation("de.erdbeerbaerlp:dcintegration.common:3.0.7")
     compileOnly("org.apache.logging.log4j:log4j-api:2.17.1")
 }
 

@@ -25,7 +25,10 @@
     "fabric": "*",
     "minecraft": "${minecraft_version}",
     "cobblemon": ">=1.6.0 <1.7.0",
-    "cobblemon_spawn_notification": ">=1.6-fabric-1.2.1",
-    "dcintegration-fabric":  ">=3.0.7.2-1.21"
+    "cobblemon_spawn_notification": ">=1.6-fabric-1.2.1"
+  },
+  "suggests": {
+    "dcintegration": ">=3.0.7.2-1.21",
+    "mc2discord": ">=4.2.4"
   }
 }
