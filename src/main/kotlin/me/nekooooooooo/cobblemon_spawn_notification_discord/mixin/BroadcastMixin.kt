@@ -9,6 +9,7 @@ import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import me.nekooooooooo.cobblemon_spawn_notification_discord.CSNDiscord
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DcIntegrationCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.Mc2DiscordCompat
+import net.minecraft.server.world.ServerWorld
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -16,8 +17,13 @@ import org.slf4j.LoggerFactory
 class BroadcastMixin {
     private val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
 
+    // TODO: Add support for ``"announceCrossDimension": false``
     @Inject(method = ["broadcastMessage(Lnet/minecraft/text/Text;)V"], at = [At("TAIL")])
     private fun sendToDiscordCrossDimension(message: Text, ci: CallbackInfo) {
+        sendToDiscord(message)
+    }
+
+    private fun sendToDiscord(message: Text) {
         when {
             CSNDiscord.hasDCIntegration -> {
                 DcIntegrationCompat.send(message.string)
@@ -37,7 +43,6 @@ class BroadcastMixin {
 
 //    @Inject(method = ["broadcastMessage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/text/Text;)V"], at = [At("TAIL")])
 //    private fun sendToDiscordWorld(level: ServerWorld, message: Text, ci: CallbackInfo) {
-//        val discordIntegration = DiscordIntegration.INSTANCE ?: return
-//        discordIntegration.sendMessage(message.string)
+//        sendToDiscord(message)
 //    }
 }
