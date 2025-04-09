@@ -18,7 +18,7 @@ class BroadcastMixin {
     private val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
 
     // TODO: Add support for ``"announceCrossDimension": false``
-    @Inject(method = ["broadcastMessage(Lnet/minecraft/text/Text;)V"], at = [At("TAIL")])
+    @Inject(method = ["broadcastMessage"], at = [At("TAIL")])
     private fun sendToDiscordCrossDimension(message: Text, ci: CallbackInfo) {
         sendToDiscord(message)
     }
