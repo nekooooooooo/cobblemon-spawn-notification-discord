@@ -51,6 +51,7 @@ repositories {
 }
 
 dependencies {
+
     // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     mappings("net.fabricmc:yarn:${project.property("yarn_mappings")}:v2")
@@ -71,6 +72,9 @@ dependencies {
 
     // MC2Discord
     compileOnly("maven.modrinth:mc2discord:Gl8sM8TE")
+
+    // Discord-MC-Chat
+    // modImplementation("maven.modrinth:discord-mc-chat:7ptDmFQV")
 
     // DiscordIntegration
     // compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
