@@ -4,14 +4,17 @@ import net.fabricmc.api.ModInitializer
 import net.fabricmc.loader.api.FabricLoader
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import me.nekooooooooo.cobblemon_spawn_notification_discord.config.ConfigManager
+import me.nekooooooooo.cobblemon_spawn_notification_discord.commands.ReloadConfigCommand
 
 class CSNDiscord : ModInitializer {
     private val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
 
+    // TODO: Add comments for future me
+
     companion object {
         var hasDCIntegration: Boolean = false
         var hasMC2Discord: Boolean = false
-        var bypassCrossDimension: Boolean = false
     }
 
     override fun onInitialize() {
@@ -23,5 +26,7 @@ class CSNDiscord : ModInitializer {
         if(hasDCIntegration) LOGGER.info("Cobblemon Spawn Notification: DCIntegration detected!")
         if(hasMC2Discord) LOGGER.info("Cobblemon Spawn Notification: MC2Discord detected!")
         if(!hasMC2Discord && !hasDCIntegration) LOGGER.warn("No discord integration mod detected!")
+
+        ConfigManager.loadConfig()
     }
 }

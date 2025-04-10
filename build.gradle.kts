@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm") version "2.1.20"
     id("fabric-loom") version "1.9.1"
     id("maven-publish")
+    kotlin("plugin.serialization") version "2.1.10"
 }
 
 version = project.property("mod_version") as String
@@ -48,6 +49,7 @@ repositories {
     maven("libs")
     maven("https://repo.erdbeerbaerlp.de/repository/maven-public/")
     maven("https://cursemaven.com")
+    maven("https://maven.wispforest.io/releases/")
 }
 
 dependencies {
@@ -59,6 +61,7 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
     // Cobblemon
     modImplementation("com.cobblemon:fabric:${property("cobblemon_version")}")
@@ -77,7 +80,6 @@ dependencies {
     // modImplementation("maven.modrinth:discord-mc-chat:7ptDmFQV")
 
     // DiscordIntegration
-    // compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
     compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
     compileOnly("org.apache.logging.log4j:log4j-api:2.17.1")
 }
