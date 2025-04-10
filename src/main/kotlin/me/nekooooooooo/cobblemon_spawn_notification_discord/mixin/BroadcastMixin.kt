@@ -18,9 +18,15 @@ class BroadcastMixin {
     private val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
 
     // TODO: Add support for ``"announceCrossDimension": false``
-    @Inject(method = ["broadcastMessage"], at = [At("TAIL")])
+    @Inject(method = ["broadcastMessage(Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
     private fun sendToDiscordCrossDimension(message: Text, ci: CallbackInfo) {
         sendToDiscord(message)
+    }
+
+    @Inject(method = ["broadcastMessage(Lnet/minecraft/class_3218;Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
+    private fun sendToDiscordWorld(level: ServerWorld, message: Text, ci: CallbackInfo) {
+        if (CSNDiscord.bypassCrossDimension)
+            sendToDiscord(message)
     }
 
     private fun sendToDiscord(message: Text) {
@@ -40,9 +46,4 @@ class BroadcastMixin {
             }
         }
     }
-
-//    @Inject(method = ["broadcastMessage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/text/Text;)V"], at = [At("TAIL")])
-//    private fun sendToDiscordWorld(level: ServerWorld, message: Text, ci: CallbackInfo) {
-//        sendToDiscord(message)
-//    }
 }

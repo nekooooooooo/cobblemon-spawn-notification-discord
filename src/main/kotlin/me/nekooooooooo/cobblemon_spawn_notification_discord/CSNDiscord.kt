@@ -11,6 +11,7 @@ class CSNDiscord : ModInitializer {
     companion object {
         var hasDCIntegration: Boolean = false
         var hasMC2Discord: Boolean = false
+        var bypassCrossDimension: Boolean = false
     }
 
     override fun onInitialize() {
