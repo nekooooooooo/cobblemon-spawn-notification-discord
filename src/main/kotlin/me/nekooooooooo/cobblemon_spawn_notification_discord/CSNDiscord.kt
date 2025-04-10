@@ -28,5 +28,6 @@ class CSNDiscord : ModInitializer {
         if(!hasMC2Discord && !hasDCIntegration) LOGGER.warn("No discord integration mod detected!")
 
         ConfigManager.loadConfig()
+        ReloadConfigCommand.register()
     }
 }
