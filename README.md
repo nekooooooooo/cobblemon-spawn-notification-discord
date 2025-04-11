@@ -1,5 +1,6 @@
-<img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/GjyKHwb6?style=for-the-badge&logo=modrinth&labelColor=444444&color=00af5c&link=https%3A%2F%2Fmodrinth.com%2Fmod%2Fcobblemon-spawn-notification-for-discord">
-<img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1239095?style=for-the-badge&logo=curseforge&labelColor=444444&color=e04e14&link=https%3A%2F%2Fwww.curseforge.com%2Fminecraft%2Fmc-mods%2Fcobblemon-spawn-notification-discord-integration">
+![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/GjyKHwb6?style=for-the-badge&logo=modrinth&label=FABRIC%20%2F%20NEOFORGE&color=00af5c&link=https%3A%2F%2Fmodrinth.com%2Fmod%2Fcobblemon-spawn-notification-for-discord&labelColor=444444)
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/GjyKHwb6?style=for-the-badge&logo=modrinth&color=00af5c&label=%20&labelColor=444444)](https://modrinth.com/mod/cobblemon-spawn-notification-for-discord)
+[![CurseForge Downloads](https://img.shields.io/curseforge/dt/1239095?style=for-the-badge&logo=curseforge&label=%20&labelColor=444444&color=e04e14&link=https%3A%2F%2Fwww.curseforge.com%2Fminecraft%2Fmc-mods%2Fcobblemon-spawn-notification-discord-integration)](https://www.curseforge.com/minecraft/mc-mods/cobblemon-spawn-notification-discord-integration)
 
 # Cobblemon Spawn Notification Discord Integration
 
