@@ -17,11 +17,45 @@ Cobblemon Spawn Notification Discord Integration is an addon/extension for the o
 
 ## How to Enable
 
+### For versions 0.3 and above
+
+**No need to change anything in the configs now. It should work by default but if you want to it to respect ``announceCrossDimensions`` config in ``spawn_notification.json``, check the config section.**
+
+### For versions 0.2 and below
+
 **Currently only works when ``announceCrossDimensions`` is set to true inside ``spawn_notification.json`` as I thought that would make the most sense. I will update it in the future to include a config file instead**
 
 Open ``spawn_notification.json`` inside ``config/``
 
 Set ``"announceCrossDimensions"`` to ``true``
+
+### For MC2Discord
+
+Open ``mc2discord.toml`` inside ``config/``
+
+Add ```"cobblemon_spawn_notification_discord"``` to ``subscriptions = [...]``
+
+For example:
+
+```toml
+[Channels]
+ [[Channels.Channel]]
+  id = 0
+  subscriptions = ["info", "chat", "command", "cobblemon_spawn_notification_discord"]
+  mode = "WEBHOOK"
+```
+
+## Config
+
+Config file is located at ``config/csn-discord-integration.json`` 
+
+- ``bypassCrossDimension``: bypasses ``announceCrossDimension`` config ``spawn_notification.json``. Set to ``false`` to respect the setting. Setting it to false would essentially disable the mod and you would need to set ``announceCrossDimension`` to ``true``. Default value: ``true``
+- ``botName``: Sets the webhook name for MC2Discord. Default value: ``"Cobblemon Spawn Notification"``
+- ``botAvatarUrl``: Sets the webhook avatar for MC2Discord.
+
+## Commands
+
+- ``/csn-discord reload``: Reloads the config
 
 ## Dependencies
 
