@@ -19,7 +19,7 @@ Cobblemon Spawn Notification Discord Integration is an addon/extension for the o
 
 ### For versions 0.3 and above
 
-**No need to change anything in the configs now. It should work by default but if you want to it to respect ``announceCrossDimensions`` config in ``spawn_notification.json``, check the config section.**
+**No need to change anything in ``spawn_notification.json`` now. It should work by default but if you want to it to respect ``announceCrossDimensions`` config in ``spawn_notification.json``, check the config section.**
 
 ### For versions 0.2 and below
 
