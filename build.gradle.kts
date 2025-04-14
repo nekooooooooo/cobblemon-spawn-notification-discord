@@ -78,6 +78,9 @@ dependencies {
 
     // Discord-MC-Chat
     // modImplementation("maven.modrinth:discord-mc-chat:7ptDmFQV")
+    compileOnly(files("libs/Discord-MC-Chat-1.20.1-2.4.1.jar"))
+
+    compileOnly("com.squareup.okhttp3:okhttp:4.12.0")
 
     // DiscordIntegration
     compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")

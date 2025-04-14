@@ -9,14 +9,14 @@ import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import me.nekooooooooo.cobblemon_spawn_notification_discord.CSNDiscord
 import me.nekooooooooo.cobblemon_spawn_notification_discord.config.ConfigManager
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DcIntegrationCompat
+import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DiscordMCChatCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.Mc2DiscordCompat
 import net.minecraft.server.world.ServerWorld
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 @Mixin(Broadcast::class)
 class BroadcastMixin {
-    private val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
+    private val LOGGER: Logger = CSNDiscord.LOGGER
 
     @Inject(method = ["broadcastMessage(Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
     private fun sendToDiscordCrossDimension(message: Text, ci: CallbackInfo) {
@@ -30,6 +30,7 @@ class BroadcastMixin {
     }
 
     private fun sendToDiscord(message: Text) {
+        // TODO: Refactor for scalability
         when {
             CSNDiscord.hasDCIntegration -> {
                 DcIntegrationCompat.send(message.string)
@@ -39,6 +40,11 @@ class BroadcastMixin {
             CSNDiscord.hasMC2Discord -> {
                 Mc2DiscordCompat.send(message.string)
                 LOGGER.info("Message sent to Discord via MC2Discord: ${message.string}")
+            }
+
+            CSNDiscord.hasDMCC -> {
+                DiscordMCChatCompat.send(message.string)
+                LOGGER.info("Message sent to Discord via DMCC: ${message.string}")
             }
 
             else -> {
