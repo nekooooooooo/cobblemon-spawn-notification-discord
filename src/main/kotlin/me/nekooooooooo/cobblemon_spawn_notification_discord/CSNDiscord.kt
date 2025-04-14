@@ -8,13 +8,13 @@ import me.nekooooooooo.cobblemon_spawn_notification_discord.config.ConfigManager
 import me.nekooooooooo.cobblemon_spawn_notification_discord.commands.ReloadConfigCommand
 
 class CSNDiscord : ModInitializer {
-    private val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
-
     // TODO: Add comments for future me
 
     companion object {
         var hasDCIntegration: Boolean = false
         var hasMC2Discord: Boolean = false
+        var hasDMCC: Boolean = false
+        val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
     }
 
     override fun onInitialize() {
@@ -23,9 +23,16 @@ class CSNDiscord : ModInitializer {
         // TODO: Refactor for scalability
         hasDCIntegration = FabricLoader.getInstance().isModLoaded("dcintegration-fabric")
         hasMC2Discord = FabricLoader.getInstance().isModLoaded("mc2discord")
-        if(hasDCIntegration) LOGGER.info("Cobblemon Spawn Notification: DCIntegration detected!")
-        if(hasMC2Discord) LOGGER.info("Cobblemon Spawn Notification: MC2Discord detected!")
-        if(!hasMC2Discord && !hasDCIntegration) LOGGER.warn("No discord integration mod detected!")
+        hasDMCC = FabricLoader.getInstance().isModLoaded("discord-mc-chat")
+
+        if(hasDCIntegration)
+            LOGGER.info("Cobblemon Spawn Notification Discord Integration: DCIntegration detected!")
+        if(hasMC2Discord)
+            LOGGER.info("Cobblemon Spawn Notification Discord Integration: MC2Discord detected!")
+        if(hasDMCC)
+            LOGGER.info("Cobblemon Spawn Notification Discord Integration: DMCC detected!")
+        if(!hasMC2Discord && !hasDCIntegration && !hasDMCC)
+            LOGGER.warn("No discord integration mod detected!")
 
         ConfigManager.loadConfig()
         ReloadConfigCommand.register()

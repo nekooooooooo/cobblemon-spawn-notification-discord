@@ -4,15 +4,15 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
+import me.nekooooooooo.cobblemon_spawn_notification_discord.CSNDiscord
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.io.File
 
 object ConfigManager {
 
     // Thanks @Gitoido!
 
-    private val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
+    private val LOGGER: Logger = CSNDiscord.LOGGER
     private const val CONFIG_PATH: String = "config/csn-discord-integration.json"
     lateinit var CONFIG: CSNDiscordConfig
 
