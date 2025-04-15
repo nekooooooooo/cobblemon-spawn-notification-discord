@@ -14,26 +14,27 @@ Cobblemon Spawn Notification Discord Integration is an addon/extension for the o
 
 - [Discord Integration](https://modrinth.com/plugin/dcintegration) by ErdbeerbaerLP
 - [MC2Discord](https://modrinth.com/mod/mc2discord) by DenisD3D
+- [Discord-MC-Chat](https://modrinth.com/mod/discord-mc-chat) by Xujiayao
 
 ## How to Enable
 
 ### For versions 0.3 and above
 
-**No need to change anything in ``spawn_notification.json`` now. It should work by default but if you want to it to respect ``announceCrossDimensions`` config in ``spawn_notification.json``, check the config section.**
+No need to change anything in ``spawn_notification.json`` now. It should work by default but if you want to it to **respect** ``announceCrossDimensions`` setting from ``spawn_notification.json``, refer to the config section.
 
 ### For versions 0.2 and below
 
-**Currently only works when ``announceCrossDimensions`` is set to true inside ``spawn_notification.json`` as I thought that would make the most sense. I will update it in the future to include a config file instead**
+Currently, the mod only works when `announceCrossDimensions` is set to `true` in `spawn_notification.json` as I thought that would make the most sense.
 
-Open ``spawn_notification.json`` inside ``config/``
+To enable it:
 
-Set ``"announceCrossDimensions"`` to ``true``
+1. Open `spawn_notification.json` inside the `config/` folder.
+2. Set `"announceCrossDimensions"` to `true`.
 
-### For MC2Discord
+### For all versions and using MC2Discord
 
-Open ``mc2discord.toml`` inside ``config/``
-
-Add ```"cobblemon_spawn_notification_discord"``` to ``subscriptions = [...]``
+1. Open `mc2discord.toml` inside the `config/` folder.
+2. Add `"cobblemon_spawn_notification_discord"` to the `subscriptions = [...]` section.
 
 For example:
 
@@ -47,11 +48,21 @@ For example:
 
 ## Config
 
-Config file is located at ``config/csn-discord-integration.json`` 
+The config file for this mod can be found at:  
+`config/csn-discord-integration.json`
 
-- ``bypassCrossDimension``: bypasses ``announceCrossDimension`` config ``spawn_notification.json``. Set to ``false`` to respect the setting. Setting it to false would essentially disable the mod and you would need to set ``announceCrossDimension`` to ``true``. Default value: ``true``
-- ``botName``: Sets the webhook name for MC2Discord. Default value: ``"Cobblemon Spawn Notification"``
-- ``botAvatarUrl``: Sets the webhook avatar for MC2Discord.
+- **`bypassCrossDimension`**  
+  If set to `true`, this will ignore the `announceCrossDimension` setting from `spawn_notification.json` will always broadcast announcements to discord.  
+  If set to `false`, it will follow whatever is set in `announceCrossDimension`.  
+  **Note:** Setting this to `false` will effectively disable the mod unless `announceCrossDimension` is also set to `true`.  
+  **Default:** `true`
+
+- **`botName`**  
+  Sets the display name of the webhook.  
+  **Default:** `"Cobblemon Spawn Notification"`
+
+- **`botAvatarUrl`**  
+  Sets the avatar image URL of the webhook.
 
 ## Commands
 
@@ -63,14 +74,15 @@ Config file is located at ``config/csn-discord-integration.json``
 
 [Cobblemon Spawn Notification](https://modrinth.com/mod/cobblemon-spawn-notification)
 
-One of the various supported Discord Integration
+One of the various supported Discord Integration Mods
 
 - [Discord Integration](https://modrinth.com/plugin/dcintegration)
 - [MC2Discord](https://modrinth.com/mod/mc2discord)
+- [Discord-MC-Chat](https://modrinth.com/mod/discord-mc-chat)
 
 ## Credits
 
-This mod is based on the Cobblemon Spawn Notification mod by tmetcalfe89. Full credit to them for the base implementation. Additionally, this mod utilizes various Discord Integration APIs and functions, not limited to; ErdbeerbaerLP, DenisD3D. Thanks to the developers for their work in making this functionality possible.
+This mod is based on the Cobblemon Spawn Notification mod by tmetcalfe89. Full credit to them for the base implementation. Additionally, this mod utilizes various Discord Integration APIs and functions, not limited to; ErdbeerbaerLP, DenisD3D, Xujiayao. Thanks to the developers for their work in making this functionality possible.
 
 Special thanks to tmetcalfe89 for their valuable input towards the mod and allowing me to use their original mod's name for this mod.
 
