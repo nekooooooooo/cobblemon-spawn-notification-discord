@@ -10,6 +10,7 @@ import me.nekooooooooo.cobblemon_spawn_notification_discord.CSNDiscord
 import me.nekooooooooo.cobblemon_spawn_notification_discord.config.ConfigManager
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DcIntegrationCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DiscordMCChatCompat
+import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.FabricordCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.Mc2DiscordCompat
 import net.minecraft.server.world.ServerWorld
 import org.slf4j.Logger
@@ -45,6 +46,11 @@ class BroadcastMixin {
             CSNDiscord.hasDMCC -> {
                 DiscordMCChatCompat.send(message.string)
                 LOGGER.info("Message sent to Discord via DMCC: ${message.string}")
+            }
+
+            CSNDiscord.hasFabricord -> {
+                FabricordCompat.send(message.string)
+                LOGGER.info("Message sent to Discord via Fabricord: ${message.string}")
             }
 
             else -> {

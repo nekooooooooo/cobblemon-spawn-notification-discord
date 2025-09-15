@@ -9,32 +9,68 @@ import me.nekooooooooo.cobblemon_spawn_notification_discord.commands.ReloadConfi
 
 class CSNDiscord : ModInitializer {
     // TODO: Add comments for future me
-
     companion object {
-        var hasDCIntegration: Boolean = false
-        var hasMC2Discord: Boolean = false
-        var hasDMCC: Boolean = false
         val LOGGER: Logger = LoggerFactory.getLogger("CSN-Discord")
+
+        // still pretty ugly and redundant, will refactor again in the future
+        private val supportedDiscordMods = listOf(
+            "dcintegration-fabric",
+            "mc2discord",
+            "discord-mc-chat",
+            "fabricord"
+        )
+
+        val loadedDiscordMods = mutableListOf<String>()
+
+        var hasDCIntegration = false
+        var hasMC2Discord = false
+        var hasDMCC = false
+        var hasFabricord = false
     }
 
     override fun onInitialize() {
         LOGGER.info("Cobblemon Spawn Notification: Discord Integration has been initialized!")
 
-        // TODO: Refactor for scalability
-        hasDCIntegration = FabricLoader.getInstance().isModLoaded("dcintegration-fabric")
-        hasMC2Discord = FabricLoader.getInstance().isModLoaded("mc2discord")
-        hasDMCC = FabricLoader.getInstance().isModLoaded("discord-mc-chat")
-
-        if(hasDCIntegration)
-            LOGGER.info("Cobblemon Spawn Notification Discord Integration: DCIntegration detected!")
-        if(hasMC2Discord)
-            LOGGER.info("Cobblemon Spawn Notification Discord Integration: MC2Discord detected!")
-        if(hasDMCC)
-            LOGGER.info("Cobblemon Spawn Notification Discord Integration: DMCC detected!")
-        if(!hasMC2Discord && !hasDCIntegration && !hasDMCC)
-            LOGGER.warn("No discord integration mod detected!")
+        detectDiscordMods()
 
         ConfigManager.loadConfig()
         ReloadConfigCommand.register()
     }
+
+    private fun detectDiscordMods() {
+        val loader = FabricLoader.getInstance()
+
+        // still pretty ugly and redundant, will refactor again in the future
+        supportedDiscordMods.forEach { modId ->
+            if (loader.isModLoaded(modId)) {
+                loadedDiscordMods.add(modId)
+                when (modId) {
+                    "dcintegration-fabric" -> {
+                        hasDCIntegration = true
+                        LOGGER.info("Cobblemon Spawn Notification: Discord Integration detected!")
+                    }
+                    "mc2discord" -> {
+                        hasMC2Discord = true
+                        LOGGER.info("Cobblemon Spawn Notification: MC2Discord detected!")
+                    }
+                    "discord-mc-chat" -> {
+                        hasDMCC = true
+                        LOGGER.info("Cobblemon Spawn Notification: Discord-MC-Chat detected!")
+                    }
+                    "fabricord" -> {
+                        hasFabricord = true
+                        LOGGER.info("Cobblemon Spawn Notification: Fabricord detected!")
+                    }
+                    else -> {
+                        LOGGER.info("Cobblemon Spawn Notification: $modId detected!")
+                    }
+                }
+            }
+        }
+
+        if (loadedDiscordMods.isEmpty()) {
+            LOGGER.warn("Cobblemon Spawn Notification: No supported Discord integration mods detected!")
+        }
+    }
+
 }

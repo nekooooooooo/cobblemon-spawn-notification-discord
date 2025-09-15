@@ -63,6 +63,8 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
+    compileOnly("com.squareup.okhttp3:okhttp:4.12.0")
+
     // Cobblemon
     modImplementation("com.cobblemon:fabric:${property("cobblemon_version")}")
 
@@ -74,13 +76,14 @@ dependencies {
     // modImplementation("maven.modrinth:dcintegration:${property("dcintegration_version")}")
 
     // MC2Discord
-    compileOnly("maven.modrinth:mc2discord:Gl8sM8TE")
+    compileOnly("maven.modrinth:mc2discord:${property("mc2discord_version_id")}")
 
     // Discord-MC-Chat
     // modImplementation("maven.modrinth:discord-mc-chat:7ptDmFQV")
     compileOnly(files("libs/Discord-MC-Chat-1.20.1-2.4.1.jar"))
 
-    compileOnly("com.squareup.okhttp3:okhttp:4.12.0")
+    // Fabricord
+    compileOnly("maven.modrinth:fabricord:${property("fabricord_version")}")
 
     // DiscordIntegration
     compileOnly("de.erdbeerbaerlp:dcintegration.common:3.0.7")
