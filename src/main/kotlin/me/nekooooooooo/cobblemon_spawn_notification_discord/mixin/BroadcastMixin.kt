@@ -31,31 +31,48 @@ class BroadcastMixin {
     }
 
     private fun sendToDiscord(message: Text) {
+        val sanitized = sanitizeMessage(message.string)
+
         // TODO: Refactor for scalability
         when {
             CSNDiscord.hasDCIntegration -> {
-                DcIntegrationCompat.send(message.string)
-                LOGGER.info("Message sent to Discord via DC Integration: ${message.string}")
+                DcIntegrationCompat.send(sanitized)
+                LOGGER.info("Message sent to Discord via DC Integration: $sanitized")
             }
 
             CSNDiscord.hasMC2Discord -> {
-                Mc2DiscordCompat.send(message.string)
-                LOGGER.info("Message sent to Discord via MC2Discord: ${message.string}")
+                Mc2DiscordCompat.send(sanitized)
+                LOGGER.info("Message sent to Discord via MC2Discord: $sanitized")
             }
 
             CSNDiscord.hasDMCC -> {
-                DiscordMCChatCompat.send(message.string)
-                LOGGER.info("Message sent to Discord via DMCC: ${message.string}")
+                DiscordMCChatCompat.send(sanitized)
+                LOGGER.info("Message sent to Discord via DMCC: $sanitized")
             }
 
             CSNDiscord.hasFabricord -> {
-                FabricordCompat.send(message.string)
-                LOGGER.info("Message sent to Discord via Fabricord: ${message.string}")
+                FabricordCompat.send(sanitized)
+                LOGGER.info("Message sent to Discord via Fabricord: $sanitized")
             }
 
             else -> {
                 LOGGER.warn("No compatible Discord integration mod found!")
             }
         }
+    }
+
+    private fun sanitizeMessage(text: String): String {
+        return text
+            .lines()
+            .filterNot { line ->
+                val trimmed = line.trim()
+                trimmed.isEmpty() ||
+                        Regex("^[a-z0-9_\\-]+:[^\\s]*$", RegexOption.IGNORE_CASE).matches(trimmed) ||
+                        Regex("^[a-z0-9_\\-]+(:[^\\s]+){1,}$", RegexOption.IGNORE_CASE).matches(trimmed)
+            }
+            .joinToString("\n")
+            .replace(Regex("\\b[a-z0-9_\\-]+:[a-zA-Z0-9_\\-:.]*\\b", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("\\s{2,}"), " ")
+            .trim()
     }
 }
