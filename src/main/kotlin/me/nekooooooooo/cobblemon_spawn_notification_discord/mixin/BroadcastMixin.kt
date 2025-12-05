@@ -41,30 +41,6 @@ abstract class BroadcastMixin {
 
 */
 
-/*    @Inject(
-        method = ["broadcast(Lus/timinc/mc/cobblemon/spawnnotification/destination/Chat\$BroadcastData;Lus/timinc/mc/cobblemon/spawnnotification/context/BroadcastContext;)V"],
-        at = [At("TAIL")]
-    )
-    private fun onBroadcastTail(
-        data: Any,
-        ctx: Any,
-        ci: CallbackInfo
-    ) {
-        // Reflection because Cobblemon uses Component but your mod uses Text
-        val broadcastData = data as Chat.BroadcastData
-        val broadcastContext = ctx as BroadcastContext
-
-        val parts = broadcastData.parts.map {
-            SpawnNotification.REGISTRIES.PARTS.get(it)?.getPart(broadcastContext)
-                ?: Text.empty()
-        }.toTypedArray()
-
-        // Build a Text version of the message
-        val message = Text.translatable(broadcastData.message, *parts)
-
-        sendToDiscord(message)
-    }*/
-
     @Inject(
         method = ["broadcast"],
         at = [At("TAIL")]
