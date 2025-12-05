@@ -1,24 +1,27 @@
 package me.nekooooooooo.cobblemon_spawn_notification_discord.mixin
 
 import net.minecraft.text.Text
+import net.minecraft.util.Formatting
 import org.spongepowered.asm.mixin.Mixin
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
-import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
+import us.timinc.mc.cobblemon.spawnnotification.destination.Chat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.CSNDiscord
 import me.nekooooooooo.cobblemon_spawn_notification_discord.config.ConfigManager
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DcIntegrationCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DiscordMCChatCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.FabricordCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.Mc2DiscordCompat
-import net.minecraft.server.world.ServerWorld
 import org.slf4j.Logger
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification
+import us.timinc.mc.cobblemon.spawnnotification.context.BroadcastContext
 
-@Mixin(Broadcast::class)
-class BroadcastMixin {
+@Mixin(Chat::class)
+abstract class BroadcastMixin {
     private val LOGGER: Logger = CSNDiscord.LOGGER
 
+/*
     @Inject(method = ["broadcastMessage(Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
     private fun sendToDiscordCrossDimension(message: Text, ci: CallbackInfo) {
         sendToDiscord(message)
@@ -30,8 +33,61 @@ class BroadcastMixin {
             sendToDiscord(message)
     }
 
-    private fun sendToDiscord(message: Text) {
-        val sanitized = sanitizeMessage(message.string)
+    @Inject(method = ["broadcast(Lnet/minecraft/class_3218;Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
+    private fun sendToDiscordWorld(level: ServerWorld, message: Text, ci: CallbackInfo) {
+        if(ConfigManager.CONFIG.bypassCrossDimension)
+            sendToDiscord(message)
+    }
+
+*/
+
+/*    @Inject(
+        method = ["broadcast(Lus/timinc/mc/cobblemon/spawnnotification/destination/Chat\$BroadcastData;Lus/timinc/mc/cobblemon/spawnnotification/context/BroadcastContext;)V"],
+        at = [At("TAIL")]
+    )
+    private fun onBroadcastTail(
+        data: Any,
+        ctx: Any,
+        ci: CallbackInfo
+    ) {
+        // Reflection because Cobblemon uses Component but your mod uses Text
+        val broadcastData = data as Chat.BroadcastData
+        val broadcastContext = ctx as BroadcastContext
+
+        val parts = broadcastData.parts.map {
+            SpawnNotification.REGISTRIES.PARTS.get(it)?.getPart(broadcastContext)
+                ?: Text.empty()
+        }.toTypedArray()
+
+        // Build a Text version of the message
+        val message = Text.translatable(broadcastData.message, *parts)
+
+        sendToDiscord(message)
+    }*/
+
+    @Inject(
+        method = ["broadcast"],
+        at = [At("TAIL")]
+    )
+    private fun onBroadcastTail(
+        data: Chat.BroadcastData,
+        ctx: BroadcastContext,
+        ci: CallbackInfo
+    ) {
+        val parts = data.parts.map {
+            SpawnNotification.REGISTRIES.PARTS.get(it)?.getPart(ctx)
+                ?: Text.empty()
+        }.toTypedArray()
+
+        val message = Text.translatable(data.message, *parts)
+
+        val plainText = Formatting.strip(message.string) ?: ""
+
+        sendToDiscord(plainText)
+    }
+
+    private fun sendToDiscord(message: String) {
+        val sanitized = sanitizeMessage(message)
 
         // TODO: Refactor for scalability
         when {
