@@ -1,64 +1,41 @@
 package me.nekooooooooo.cobblemon_spawn_notification_discord.mixin
 
-import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 import org.spongepowered.asm.mixin.Mixin
+import org.spongepowered.asm.mixin.Shadow
 import org.spongepowered.asm.mixin.injection.At
 import org.spongepowered.asm.mixin.injection.Inject
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
-import us.timinc.mc.cobblemon.spawnnotification.destination.Chat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.CSNDiscord
-import me.nekooooooooo.cobblemon_spawn_notification_discord.config.ConfigManager
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DcIntegrationCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.DiscordMCChatCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.FabricordCompat
 import me.nekooooooooo.cobblemon_spawn_notification_discord.utils.Mc2DiscordCompat
 import org.slf4j.Logger
-import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification
-import us.timinc.mc.cobblemon.spawnnotification.context.BroadcastContext
+import us.timinc.mc.cobblemon.spawnnotification.api.broadcast.BroadcastContext
+import us.timinc.mc.cobblemon.spawnnotification.api.message.Message
+import us.timinc.mc.cobblemon.spawnnotification.broadcast.ChatBroadcast
 
-@Mixin(Chat::class)
+@Mixin(ChatBroadcast::class)
 abstract class BroadcastMixin {
     private val LOGGER: Logger = CSNDiscord.LOGGER
 
-/*
-    @Inject(method = ["broadcastMessage(Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
-    private fun sendToDiscordCrossDimension(message: Text, ci: CallbackInfo) {
-        sendToDiscord(message)
-    }
-
-    @Inject(method = ["broadcastMessage(Lnet/minecraft/class_3218;Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
-    private fun sendToDiscordWorld(level: ServerWorld, message: Text, ci: CallbackInfo) {
-        if(ConfigManager.CONFIG.bypassCrossDimension)
-            sendToDiscord(message)
-    }
-
-    @Inject(method = ["broadcast(Lnet/minecraft/class_3218;Lnet/minecraft/class_2561;)V"], at = [At("TAIL")])
-    private fun sendToDiscordWorld(level: ServerWorld, message: Text, ci: CallbackInfo) {
-        if(ConfigManager.CONFIG.bypassCrossDimension)
-            sendToDiscord(message)
-    }
-
-*/
+    @Shadow
+    abstract fun getMessage(): Message
 
     @Inject(
-        method = ["broadcast"],
+        method = ["deliver"],
         at = [At("TAIL")]
     )
-    private fun onBroadcastTail(
-        data: Chat.BroadcastData,
-        ctx: BroadcastContext,
-        ci: CallbackInfo
-    ) {
-        val parts = data.parts.map {
-            SpawnNotification.REGISTRIES.PARTS.get(it)?.getPart(ctx)
-                ?: Text.empty()
-        }.toTypedArray()
+    private fun onDeliverTail(ctx: BroadcastContext.WithSituations, ci: CallbackInfo) {
+        val composed = try {
+            getMessage().compose(ctx)
+        } catch (e: Exception) {
+            LOGGER.warn("Failed to compose Spawn Notification chat message for Discord forwarding", e)
+            return
+        }
 
-        val message = Text.translatable(data.message, *parts)
-
-        val plainText = Formatting.strip(message.string) ?: ""
-
+        val plainText = Formatting.strip(composed?.string ?: "") ?: ""
         sendToDiscord(plainText)
     }
 

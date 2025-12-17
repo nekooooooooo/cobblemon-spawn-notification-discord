@@ -80,7 +80,10 @@ dependencies {
 
     // Discord-MC-Chat
     // modImplementation("maven.modrinth:discord-mc-chat:7ptDmFQV")
-    compileOnly(files("libs/Discord-MC-Chat-1.20.1-2.4.1.jar"))
+    val dmccJar = file("libs/Discord-MC-Chat-1.20.1-2.4.1.jar")
+    if (dmccJar.exists()) {
+        compileOnly(files(dmccJar))
+    }
 
     // Fabricord
     compileOnly("maven.modrinth:fabricord:${property("fabricord_version")}")
@@ -99,9 +102,9 @@ tasks.processResources {
     filesMatching("fabric.mod.json") {
         expand(
             "version" to project.version,
-            "minecraft_version" to project.property("minecraft_version"),
-            "loader_version" to project.property("loader_version"),
-            "kotlin_loader_version" to project.property("kotlin_loader_version")
+            "minecraft_version" to project.property("minecraft_version").toString(),
+            "loader_version" to project.property("loader_version").toString(),
+            "kotlin_loader_version" to project.property("kotlin_loader_version").toString()
         )
     }
 }
